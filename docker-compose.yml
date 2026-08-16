@@ -13,7 +13,7 @@ services:
     networks:
       - horizon-internal
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "horizon", "-phorizon"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uhorizon", "-phorizon"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -40,13 +40,13 @@ services:
     ports:
       - "8080:80"
     environment:
-      - APPWRITE_DB_HOST=horizon-mariadb
-      - APPWRITE_DB_PORT=3306
-      - APPWRITE_DB_SCHEMA=horizon
-      - APPWRITE_DB_USER=horizon
-      - APPWRITE_DB_PASS=horizon
-      - APPWRITE_REDIS_HOST=horizon-redis
-      - APPWRITE_REDIS_PORT=6379
+      - _APPWRITE_DB_HOST=horizon-mariadb
+      - _APPWRITE_DB_PORT=3306
+      - _APPWRITE_DB_SCHEMA=horizon
+      - _APPWRITE_DB_USER=horizon
+      - _APPWRITE_DB_PASS=horizon
+      - _APPWRITE_REDIS_HOST=horizon-redis
+      - _APPWRITE_REDIS_PORT=6379
     volumes:
       - appwrite_data:/var/lib/appwrite
     depends_on:
