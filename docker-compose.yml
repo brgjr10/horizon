@@ -54,6 +54,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env.docker
+    environment:
+      - NEXT_PUBLIC_SITE_URL=http://192.168.4.110:3000
     ports:
       - "3000:3000"
     depends_on:
