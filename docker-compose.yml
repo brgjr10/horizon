@@ -23,7 +23,6 @@ services:
     image: redis:7-alpine
     container_name: horizon-redis
     restart: unless-stopped
-    command: ["redis-server", "--save", "", "--appendonly", "no"]
     volumes:
       - horizon_redis_data:/data
     networks:
