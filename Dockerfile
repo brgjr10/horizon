@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 make g+
 
 COPY package.json package-lock.json ./
 ENV CI=true HUSKY=0
-RUN npm cache clean --force && npm install --legacy-peer-deps --no-audit --no-fund --ignore-scripts
+RUN npm install --legacy-peer-deps --no-audit --no-fund --ignore-scripts
 
 COPY . .
 
@@ -13,8 +13,8 @@ RUN npm run build
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-RUN mkdir -p .next/static && chown -R nextjs:nodejs /app
+RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 EXPOSE 3000
-CMD ["node", ".next/standalone/server.js"]
+CMD ["npm", "run", "start"]
