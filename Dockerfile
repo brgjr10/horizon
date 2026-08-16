@@ -1,10 +1,11 @@
-FROM node:20-slim AS deps
+FROM node:20 AS deps
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
 COPY package.json package-lock.json ./
-RUN npm install --legacy-peer-deps
+ENV CI=true HUSKY=0
+RUN npm install --legacy-peer-deps --no-audit --no-fund
 
-FROM node:20-slim AS builder
+FROM node:20 AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
