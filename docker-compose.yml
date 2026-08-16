@@ -10,6 +10,8 @@ services:
       - MYSQL_PASSWORD=appwrite
     volumes:
       - horizon_mariadb_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
     networks:
       - horizon-internal
     healthcheck:
@@ -25,6 +27,8 @@ services:
     restart: unless-stopped
     volumes:
       - horizon_redis_data:/data
+    ports:
+      - "6380:6379"
     networks:
       - horizon-internal
     healthcheck:
