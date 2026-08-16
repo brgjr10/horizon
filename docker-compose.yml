@@ -35,7 +35,7 @@ services:
       start_period: 10s
 
   appwrite:
-    image: appwrite/appwrite:latest
+    image: appwrite/appwrite:1.5.13
     container_name: horizon-appwrite
     restart: unless-stopped
     ports:
