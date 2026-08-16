@@ -12,6 +12,11 @@ services:
       - horizon_mariadb_data:/var/lib/mysql
     networks:
       - horizon-internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "horizon", "-phorizon"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   horizon-redis:
     image: redis:7-alpine
@@ -22,6 +27,11 @@ services:
       - horizon_redis_data:/data
     networks:
       - horizon-internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   appwrite:
     image: appwrite/appwrite:latest
@@ -40,8 +50,10 @@ services:
     volumes:
       - appwrite_data:/var/lib/appwrite
     depends_on:
-      - horizon-mariadb
-      - horizon-redis
+      horizon-mariadb:
+        condition: service_healthy
+      horizon-redis:
+        condition: service_healthy
     networks:
       - horizon-internal
       - npm-network
