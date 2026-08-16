@@ -13,10 +13,11 @@ services:
     networks:
       - horizon-internal
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uhorizon", "-phorizon"]
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
       interval: 5s
       timeout: 5s
-      retries: 10
+      retries: 40
+      start_period: 60s
 
   horizon-redis:
     image: redis:7-alpine
@@ -31,7 +32,8 @@ services:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
-      retries: 10
+      retries: 20
+      start_period: 10s
 
   appwrite:
     image: appwrite/appwrite:latest
