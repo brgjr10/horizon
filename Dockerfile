@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 make g+
 
 COPY package.json package-lock.json ./
 ENV CI=true HUSKY=0
-RUN npm install --legacy-peer-deps --no-audit --no-fund
+RUN npm cache clean --force && npm install --legacy-peer-deps --no-audit --no-fund --ignore-scripts
 
 COPY . .
 
