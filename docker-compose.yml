@@ -1,60 +1,12 @@
 services:
-  horizon-mariadb:
-    image: mariadb:10.11
-    container_name: horizon-mariadb
-    restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWORD=horizon_root
-      - MYSQL_DATABASE=horizon
-      - MYSQL_USER=horizon
-      - MYSQL_PASSWORD=horizon
-    volumes:
-      - horizon_mariadb_data:/var/lib/mysql
-    networks:
-      - horizon-internal
-    healthcheck:
-      test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
-      interval: 5s
-      timeout: 5s
-      retries: 40
-      start_period: 60s
-
-  horizon-redis:
-    image: redis:7-alpine
-    container_name: horizon-redis
-    restart: unless-stopped
-    volumes:
-      - horizon_redis_data:/data
-    networks:
-      - horizon-internal
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 20
-      start_period: 10s
-
   appwrite:
     image: appwrite/appwrite:latest
     container_name: horizon-appwrite
     restart: unless-stopped
     ports:
       - "8080:80"
-    environment:
-      - APPWRITE_DB_HOST=horizon-mariadb
-      - APPWRITE_DB_PORT=3306
-      - APPWRITE_DB_SCHEMA=horizon
-      - APPWRITE_DB_USER=horizon
-      - APPWRITE_DB_PASS=horizon
-      - APPWRITE_REDIS_HOST=horizon-redis
-      - APPWRITE_REDIS_PORT=6379
     volumes:
       - appwrite_data:/var/lib/appwrite
-    depends_on:
-      horizon-mariadb:
-        condition: service_healthy
-      horizon-redis:
-        condition: service_healthy
     networks:
       - horizon-internal
       - npm-network
@@ -78,8 +30,6 @@ services:
       - npm-network
 
 volumes:
-  horizon_mariadb_data:
-  horizon_redis_data:
   appwrite_data:
 
 networks:
