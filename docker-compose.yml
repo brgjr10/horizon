@@ -1,0 +1,38 @@
+services:
+  appwrite:
+    image: appwrite/appwrite:latest
+    container_name: horizon-appwrite
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - appwrite_data:/var/lib/appwrite
+    environment:
+      - APPWRITE_DB_HOST=localhost
+    networks:
+      - horizon-internal
+      - npm-network
+
+  horizon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: horizon-web
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    depends_on:
+      - appwrite
+    networks:
+      - horizon-internal
+      - npm-network
+
+volumes:
+  appwrite_data:
+
+networks:
+  horizon-internal:
+    driver: bridge
+  npm-network:
+    external: true
+    name: npm-network
