@@ -1,7 +1,7 @@
 'use server';
 
 import { ID, Query } from "node-appwrite";
-import { createAdminClient, createSessionClient } from "../appwrite";
+import { createAdminClient, createSessionClient, createSessionJWT } from "../appwrite";
 import { cookies } from "next/headers";
 import { encryptId, extractCustomerIdFromUrl, parseStringify } from "../utils";
 import { CountryCode, ProcessorTokenCreateRequest, ProcessorTokenCreateRequestProcessorEnum, Products } from "plaid";
@@ -34,21 +34,20 @@ export const getUserInfo = async ({ userId }: getUserInfoProps) => {
 
 export const signIn = async ({ email, password }: signInProps) => {
   try {
-    const { account } = await createAdminClient();
-    const session = await account.createEmailPasswordSession(email, password);
+    const { jwt, userId } = await createSessionJWT(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
+    cookies().set("appwrite-session", jwt, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
-      secure: true,
+      secure: false,
     });
 
-    const user = await getUserInfo({ userId: session.userId }) 
+    const user = await getUserInfo({ userId });
 
     return parseStringify(user);
   } catch (error) {
-    console.error('Error', error);
+    console.error("Error", error);
   }
 }
 
@@ -90,13 +89,13 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       }
     )
 
-    const session = await account.createEmailPasswordSession(email, password);
+    const { jwt } = await createSessionJWT(email, password);
 
-    cookies().set("appwrite-session", session.secret, {
+    cookies().set("appwrite-session", jwt, {
       path: "/",
       httpOnly: true,
       sameSite: "strict",
-      secure: true,
+      secure: false,
     });
 
     return parseStringify(newUser);

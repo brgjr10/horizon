@@ -46,13 +46,20 @@ services:
       - "8080:80"
       - "443:443"
     environment:
-      - APPWRITE_DB_HOST=horizon-mariadb
-      - APPWRITE_DB_PORT=3306
-      - APPWRITE_DB_SCHEMA=appwrite
-      - APPWRITE_DB_USER=appwrite
-      - APPWRITE_DB_PASS=appwrite
-      - APPWRITE_REDIS_HOST=horizon-redis
-      - APPWRITE_REDIS_PORT=6379
+      - _APP_ENV=development
+      - _APP_OPTIONS_ROUTER_PROTECTION=disabled
+      - _APP_CONSOLE_WHITELIST_ROOT=disabled
+      - _APP_DOMAIN=192.168.4.110
+      - _APP_OPENSSL_KEY_V1=KiloHorizonAppwriteSecretKey2026
+      - _APP_REDIS_HOST=horizon-redis
+      - _APP_REDIS_PORT=6379
+      - _APP_DB_ADAPTER=mariadb
+      - _APP_DB_HOST=horizon-mariadb
+      - _APP_DB_PORT=3306
+      - _APP_DB_SCHEMA=appwrite
+      - _APP_DB_USER=appwrite
+      - _APP_DB_PASS=appwrite
+      - _APP_DB_ROOT_PASS=appwrite
     volumes:
       - appwrite_data:/var/lib/appwrite
     depends_on:

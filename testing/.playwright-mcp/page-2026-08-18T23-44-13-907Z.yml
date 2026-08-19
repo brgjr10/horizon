@@ -1,0 +1,25 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e26]
+  - main [ref=e73]:
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - link "Horizon logo Horizon" [ref=e77] [cursor=pointer]:
+          - /url: /
+          - img "Horizon logo" [ref=e78]
+          - heading "Horizon" [level=1] [ref=e79]
+        - heading "Sign In Please enter your details" [level=1] [ref=e81]:
+          - text: Sign In
+          - paragraph [ref=e82]: Please enter your details
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]: Email
+          - textbox "Email Password" [ref=e87]:
+            - /placeholder: Enter your email
+        - generic [ref=e88]:
+          - generic [ref=e89]: Password
+          - textbox "Enter your password" [ref=e91]
+        - button "Sign In" [ref=e93] [cursor=pointer]
+      - generic [ref=e94]:
+        - paragraph [ref=e95]: Don't have an account?
+        - link "Sign up" [ref=e96] [cursor=pointer]:
+          - /url: /sign-up

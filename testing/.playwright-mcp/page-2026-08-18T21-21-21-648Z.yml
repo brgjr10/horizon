@@ -1,0 +1,44 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e26]
+  - main [ref=e27]:
+    - generic [ref=e28]:
+      - navigation [ref=e29]:
+        - link "Horizon logo" [ref=e30] [cursor=pointer]:
+          - /url: /
+          - img "Horizon logo" [ref=e31]
+        - link "Home" [ref=e32] [cursor=pointer]:
+          - /url: /
+          - img "Home" [ref=e34]
+        - link "My Banks" [ref=e35] [cursor=pointer]:
+          - /url: /my-banks
+          - img "My Banks" [ref=e37]
+        - link "Transaction History" [ref=e38] [cursor=pointer]:
+          - /url: /transaction-history
+          - img "Transaction History" [ref=e40]
+        - link "Transfer Funds" [ref=e41] [cursor=pointer]:
+          - /url: /payment-transfer
+          - img "Transfer Funds" [ref=e43]
+        - button "connect bank Connect bank" [ref=e44] [cursor=pointer]:
+          - img "connect bank" [ref=e45]
+          - paragraph [ref=e46]: Connect bank
+      - img "jsm" [ref=e49] [cursor=pointer]
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - heading "Welcome Admin" [level=1] [ref=e55]:
+            - text: Welcome
+            - generic [ref=e56]: Admin
+          - paragraph [ref=e57]: Access and manage your account and transactions efficiently.
+        - generic [ref=e58]:
+          - img [ref=e60]
+          - generic [ref=e61]:
+            - 'heading "Bank Accounts: 0" [level=2] [ref=e62]'
+            - generic [ref=e63]:
+              - paragraph [ref=e64]: Total Current Balance
+              - generic [ref=e66]: $0,00
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - heading "Recent transactions" [level=2] [ref=e69]
+          - link "View all" [ref=e70] [cursor=pointer]:
+            - /url: /transaction-history?id=undefined
+        - tablist [ref=e72]
